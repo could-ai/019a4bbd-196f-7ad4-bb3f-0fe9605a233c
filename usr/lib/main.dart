@@ -184,7 +184,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
   }) {
     return Card(
       child: Padding(
-        const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
             Icon(icon, size: 48, color: Theme.of(context).primaryColor),
