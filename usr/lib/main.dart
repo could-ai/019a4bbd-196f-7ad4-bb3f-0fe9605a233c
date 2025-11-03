@@ -63,9 +63,19 @@ class _ComparisonPageState extends State<ComparisonPage> {
         });
       }
     } catch (e) {
-      // Handle potential errors, e.g., platform exceptions
+      // Enhanced error handling for better user feedback
+      String errorMessage = 'Error picking file: $e';
+      if (e.toString().contains('PlatformException')) {
+        errorMessage = 'File picker is not supported on this platform or browser. Please try a different browser or device.';
+      } else if (e.toString().contains('cancelled')) {
+        errorMessage = 'File selection was cancelled.';
+      }
+      
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error picking file: $e")),
+        SnackBar(
+          content: Text(errorMessage),
+          duration: const Duration(seconds: 5),
+        ),
       );
     }
   }
@@ -174,7 +184,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
   }) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        const EdgeInsets.all(24.0),
         child: Column(
           children: [
             Icon(icon, size: 48, color: Theme.of(context).primaryColor),
